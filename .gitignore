@@ -1,3 +1,5 @@
 /Common/Common/obj/
 /Common/Common/bin
 /Common/.vs/
+**/bin/
+**/obj/
