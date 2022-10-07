@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace ManageUserApi.DataAccess;
+﻿namespace ManageUserApi.DataAccess;
 
 public class UserContext : DbContext
 {
