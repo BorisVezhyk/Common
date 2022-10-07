@@ -6,8 +6,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var connectionString = builder.Configuration.GetConnectionString("UserDb");
-
 builder.Services.AddDbContext<UserContext>(o => o.UseInMemoryDatabase("UserDb"));
 builder.Services.AddTransient<IUserRepo, UserRepo>();
 var app = builder.Build();
@@ -55,9 +53,15 @@ app.MapPut("/user", async (IUserRepo repo, User updateUser) =>
 
 app.MapDelete("/user/{id}", async (IUserRepo repo, int id) =>
 {
-	await repo.RemoveUserAsync(id);
-	
-	return Results.Ok();
+	try
+	{
+		await repo.RemoveUserAsync(id);
+		return Results.Ok();
+	}
+	catch (InvalidOperationException)
+	{
+		return Results.NotFound();
+	}
 });
 
 app.Run();

@@ -9,22 +9,26 @@ public class UserRepo : IUserRepo
 		_db = db ?? throw new ArgumentNullException(nameof(db));
 	}
 
+	/// <inheritdoc/>
 	public async Task AddUserAsync(User user)
 	{
 		await _db.Users.AddAsync(user);
 		await _db.SaveChangesAsync();
 	}
 
+	/// <inheritdoc/>
 	public async Task<User?> GetUserAsync(int id)
 	{
 		return await _db.Users.FindAsync(id);
 	}
 
+	/// <inheritdoc/>
 	public async Task<List<User>> GetUsersAsync()
 	{
 		return await _db.Users.ToListAsync();
 	}
 
+	/// <inheritdoc/>
 	public async Task RemoveUserAsync(int id)
 	{
 		User? user = await _db.Users.FindAsync(id);
@@ -36,7 +40,8 @@ public class UserRepo : IUserRepo
 		_db.Users.Remove(user);
 		await _db.SaveChangesAsync();
 	}
-
+	
+	/// <inheritdoc/>
 	public async Task UpdateUserAsync(User updateUser)
 	{
 		User? user = await _db.Users.FindAsync(updateUser.Id);
