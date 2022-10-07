@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.DataAccess
 {
-	public class Context : DbContext
+	public class ContextDb : DbContext
 	{
-		public Context(DbContextOptions options) : base(options) { }
+		public ContextDb(DbContextOptions options) : base(options) { }
 
 		public DbSet<Student> Students { get; set; } = null!;
 	}
