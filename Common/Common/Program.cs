@@ -19,26 +19,26 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/users", async (IUserRepo repo) =>
+app.MapGet("api/users", async (IUserRepo repo) =>
 {
 	return Results.Ok(await repo.GetUsersAsync());
 });
 
-app.MapGet("/user/{id}", async (IUserRepo repo, int id) =>
+app.MapGet("api/user/{id}", async (IUserRepo repo, int id) =>
 {
 	User? user = await repo.GetUserAsync(id);
 	
 	return user is null ? Results.NotFound() : Results.Ok(user);
 });
 
-app.MapPost("/user", async (IUserRepo repo, User user) =>
+app.MapPost("api/user", async (IUserRepo repo, User user) =>
 {
 	await repo.AddUserAsync(user);
 	
-	return Results.Created($"/user/{user.Id}", user);
+	return Results.Created($"api/user/{user.Id}", user);
 });
 
-app.MapPut("/user", async (IUserRepo repo, User updateUser) =>
+app.MapPut("api/user", async (IUserRepo repo, User updateUser) =>
 {
 	try
 	{
@@ -51,7 +51,7 @@ app.MapPut("/user", async (IUserRepo repo, User updateUser) =>
 	}
 });
 
-app.MapDelete("/user/{id}", async (IUserRepo repo, int id) =>
+app.MapDelete("api/user/{id}", async (IUserRepo repo, int id) =>
 {
 	try
 	{
